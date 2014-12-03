@@ -4,4 +4,3 @@
 
 -Instructions for downloading expression and genotype data from GTEx exchange area are 
  listed in gtex.md
-Hello Younghee 
