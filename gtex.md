@@ -1,4 +1,3 @@
-PredixMod - Pipeline to develop prediction models for GTEX data and cross-validation
 
 ### Get expression/genotype data from GTEx exchange area
 1. Download from GTEx Exchange Area (Provisinal tab)
