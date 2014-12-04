@@ -5,3 +5,4 @@
 -Instructions for downloading expression and genotype data from GTEx exchange area are 
  listed in gtex.md
 
+-Descriptions of scripts that execute steps in gene prediction model development pipeline shown below: 
