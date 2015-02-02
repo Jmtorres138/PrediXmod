@@ -11,13 +11,13 @@ use warnings;
 #### .SNP.list rownames of matrix
 #### .bim plink bim file with SNP pos info
 
-my $dir = "/nas40t2/gtex/GTEx_Analysis_2014-06-13/genotypes/OMNI_arrays/";
+my $dir = "/group/im-lab/nas40t2/haky/Data/dbGaP/GTEx/41400/gtex/exchange/GTEx_phs000424/exchange/analysis_releases/GTEx_Analysis_2014-06-13/genotypes/OMNI_arrays/";
 my $file = "GTEx_Analysis_2014-06-13_OMNI_2.5M_5M_451Indiv_allchr_genot_imput_info04_maf01_HEW1E6.vcf.gz";
 
 system("zcat ${dir}${file} > tmp.vcf");
 
 open(VCF, "tmp.vcf");
-open(HAP, "/nas40t2/hwheeler/PrediXcan_CV/hapmapSnpsCEU.list"); ##from http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/hapmapSnpsCEU.txt.gz
+open(HAP, "/group/im-lab/nas40t2/hwheeler/PrediXcan_CV/hapmapSnpsCEU.list"); ##from http://hgdownload.cse.ucsc.edu/goldenPath/hg19/database/hapmapSnpsCEU.txt.gz
 
 my %hapmapsnps;
 while(<HAP>){
@@ -37,6 +37,10 @@ open(MLINFO, ">GTEx_Analysis_2014-06-13.hapmapSnpsCEU.mlinfo");
 
 while(<VCF>){
     chomp;
+    my ($first) = split(/\t/);
+    if($first =~ m/##/){ ##skip	vcf info lines
+        next;
+    }
     my ($chr, $pos, $rs, $ref, $alt, $qual, $filter, $info, $format, @genos) = split(/\t/);
     my ($expfreq, $impinfo, $cert) = split(/;/,$info);
     my ($a, $freqalt) = split(/=/,$expfreq);
@@ -89,4 +93,4 @@ system("paste -d\' \' intro t.dos > GTEx_Analysis_2014-06-13.hapmapSnpsCEU.mldos
 system("gzip GTEx_Analysis_2014-06-13_OMNI_2.5M_5M_451Indiv.hapmapSnpsCEU.unamb.dosage");
 system("gzip GTEx_Analysis_2014-06-13.hapmapSnpsCEU.mldose");
 system("gzip GTEx_Analysis_2014-06-13.hapmapSnpsCEU.mlinfo");
-system("rm intro t.dos");
+system("rm intro t.dos runR.R");
