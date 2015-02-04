@@ -3,18 +3,23 @@ args <- commandArgs(trailingOnly=T)
 
 
 project.name <- args[1]
-my.dir <- args[2]
+geno.dir <- args[2]
 tissue <- args[3]
+trnscrpt.dir <- args[4]
+out.dir <- args[5]
 tis <- gsub(" ","",tissue)
 
 Nk <- 15
 
-setwd(my.dir)
+setwd(geno.dir)
 
 files <- paste0( project.name,c(paste0(".",tis,".exp.adj.",Nk,"PEERfactors.3PCs.gender.IDxGENE.RDS"),
                                 ".SNPxID.RDS",
                                 ".SNPanno.RDS",
                                 ".protein-coding.anno.RDS"))
+files[1] <- paste0(trnscrpt.dir,files[1])
+files[4] <- paste0(trnscrpt.dir,files[4])
+
 names(files) <- c("EXPdata","SNPdata","SNPanno","EXPanno")
 if(!all(file.exists(files)[-1])){
     print("File not found:")
@@ -91,7 +96,7 @@ for(i in names(x)){
             tgeneanno <- tgenel[indexEXP,]
             tsnpdata <- snpdata[,rownames(tsnpanno),drop=F]
             texpdata <- expdata[,rownames(tgeneanno),drop=F]
-            outfiles <- paste0(project.name,".",tis,c(".SNPanno.",
+            outfiles <- paste0(out.dir,project.name,".",tis,c(".SNPanno.",
                                                       ".EXPanno.",
                                                       ".IDxSNP.",
                                                       ".IDxGENE."),i,".",j,".RDS")
@@ -118,7 +123,7 @@ for(i in names(x)){
                 tgeneanno <- tgenel[indexEXP,]
                 tsnpdata <- snpdata[,rownames(tsnpanno),drop=F]
                 texpdata <- expdata[,rownames(tgeneanno),drop=F]
-                outfiles <- paste0(project.name,".",tis,c(".SNPanno.",
+                outfiles <- paste0(out.dir,project.name,".",tis,c(".SNPanno.",
                                                           ".EXPanno.",
                                                           ".IDxSNP.",
                                                           ".IDxGENE."),i,".",(j+1),".RDS")
