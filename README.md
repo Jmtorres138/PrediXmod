@@ -13,7 +13,7 @@
 - for separate files per autosome: 1_vcf2dosage.mach.chr_gtex_hapmapSNPs.pl
 
 #### Convert GTEx RNA-seq data for downstream analyses
-- 2_pull_protein_coding_RPKM_rebuild.pl
+- 2_pull_protein_coding_RPKM_rebuild.R
 
 #### Normalize and adjust the GTEx RNA-seq data by PEER factors and genotype principal components
 - 3_calc_PEER_adj_exp.r
