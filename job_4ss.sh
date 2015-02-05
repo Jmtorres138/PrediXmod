@@ -14,7 +14,7 @@ while(<TISFILE>){
     chomp;
     my $line = $_;
     (my $tis = $_) =~ s/\s//g;
-    my $dir = "/group/dolan-lab/nknoblauch/".$tis;
+    my $dir = "/group/im-lab/nas40t2/jason/projects/PrediXmod/GTEx/".$tis;
     if( -e $dir){
 	opendir(DIR,$dir);
 	my @files = grep(/.+EXPanno\.[0-9]+\.[0-9]+.RDS/,readdir(DIR));
@@ -24,7 +24,7 @@ while(<TISFILE>){
 	    foreach my $file (@files){
 		(my $chr= $file) =~ s/.+EXPanno\.([0-9]+)\.([0-9]+)\.RDS/$1/;
 		(my $seg = $file)  =~ s/.+EXPanno\.([0-9]+)\.([0-9]+)\.RDS/$2/;
-		my $filename = "/group/dolan-lab/nknoblauch/${tis}/GTEx_PrediXmod.${tis}.ResultsArray.${chr}.${seg}.RDS";
+		my $filename = "/group/im-lab/nas40t2/jason/projects/PrediXmod/GTEx/${tis}/gtex.${tis}.ResultsArray.${chr}.${seg}.RDS";
 		$tis =~ s/\(|\)//g;
 		my $shellfile = "${SCRIPTDIR}/LASSO.${tis}.${chr}.${seg}.sh";
 		unless (-e $shellfile){
@@ -37,7 +37,7 @@ while(<TISFILE>){
 		    print DOSCRIPT "#PBS -o ${SCRIPTDIR}/LASSO.${tis}.${chr}.${seg}.out\n";
 		    print DOSCRIPT "#PBS -e ${SCRIPTDIR}/LASSO.${tis}.${chr}.${seg}.err\n";
 		    print DOSCRIPT "module load R/3.1.0\n";
-		    print DOSCRIPT "Rscript /home/t.cri.nknoblauch/PrediXmod/4_CV_GTEx_lasso_adjusted.R GTEx_PrediXmod /group/dolan-lab/nknoblauch  \'${line}\' ${chr} ${seg}\n";
+		    print DOSCRIPT "Rscript /home/t.cri.jtorres/group/im-lab/nas40t2/jason/projects/PrediXmod/4_CV_GTEx_lasso_adjusted.R gtex /group/im-lab/nas40t2/jason/projects/PrediXmod/GTEx/${tis}/  \'${line}\' ${chr} ${seg}\n";
 		    close(DOSCRIPT);
 		    system("qsub ${SCRIPTDIR}/LASSO.${tis}.${chr}.${seg}.sh");
 		    print "$line ${tis}.${chr}.${seg}\n";
