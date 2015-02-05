@@ -17,7 +17,7 @@ files <- paste0( project.name,c(paste0(".",tis,".exp.adj.",Nk,"PEERfactors.3PCs.
                                 ".SNPxID.RDS",
                                 ".SNPanno.RDS",
                                 ".protein-coding.anno.RDS"))
-files[1] <- paste0(trnscrpt.dir,files[1])
+files[1] <- paste0(out.dir,files[1])
 files[4] <- paste0(trnscrpt.dir,files[4])
 
 names(files) <- c("EXPdata","SNPdata","SNPanno","EXPanno")
@@ -35,7 +35,7 @@ expanno <- readRDS(files["EXPanno"])
 rownames(snpanno) <- snpanno$rsid
 rownames(expanno) <- expanno$id
 
-setwd(tis)
+#setwd(tis)
 
 print(paste0("Reading ",tis," specific files"))
 
