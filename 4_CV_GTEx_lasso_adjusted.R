@@ -21,7 +21,7 @@ tis <- gsub(" ","",tissue)
 
 
 setwd(my.dir)
-setwd(tis)
+#setwd(tis)
 filenames <- paste0(project.name,".",tis,c(".SNPanno.",
                                            ".EXPanno.",
                                            ".IDxSNP.",
